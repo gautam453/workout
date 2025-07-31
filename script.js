@@ -45,10 +45,21 @@ const exercises = [
 
 const list = document.getElementById("exercise-list");
 const filter = document.getElementById("filter");
+const search = document.getElementById("search");
+const themeToggle = document.getElementById("theme-toggle");
 
-function renderExercises(type = "all") {
+function renderExercises(type = "all", keyword = "") {
   list.innerHTML = "";
-  const filtered = type === "all" ? exercises : exercises.filter(e => e.type === type);
+  const filtered = exercises.filter(e => 
+    (type === "all" || e.type === type) &&
+    e.name.toLowerCase().includes(keyword.toLowerCase())
+  );
+
+  if (filtered.length === 0) {
+    list.innerHTML = "<p>No exercises found.</p>";
+    return;
+  }
+
   filtered.forEach(ex => {
     const card = document.createElement("div");
     card.className = "card";
@@ -56,19 +67,40 @@ function renderExercises(type = "all") {
       <img src="${ex.image}" alt="${ex.name}" />
       <h3>${ex.name}</h3>
       <p><strong>Type:</strong> ${ex.type}</p>
-      <button onclick="toggleDetails(this)">Show Details</button>
+      <button class="toggle-btn">Show Details</button>
       <div class="details"><p>${ex.description}</p></div>
     `;
     list.appendChild(card);
   });
 }
 
-function toggleDetails(btn) {
-  const details = btn.nextElementSibling;
-  const isVisible = details.style.display === "block";
-  details.style.display = isVisible ? "none" : "block";
-  btn.textContent = isVisible ? "Show Details" : "Hide Details";
-}
+list.addEventListener("click", e => {
+  if (e.target.classList.contains("toggle-btn")) {
+    const details = e.target.nextElementSibling;
+    const visible = details.style.display === "block";
+    details.style.display = visible ? "none" : "block";
+    e.target.textContent = visible ? "Show Details" : "Hide Details";
+  }
+});
 
-filter.addEventListener("change", e => renderExercises(e.target.value));
-renderExercises();
+filter.addEventListener("change", () => {
+  localStorage.setItem("selectedFilter", filter.value);
+  renderExercises(filter.value, search.value);
+});
+
+search.addEventListener("input", () => {
+  renderExercises(filter.value, search.value);
+});
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedFilter = localStorage.getItem("selectedFilter");
+  if (savedFilter) {
+    filter.value = savedFilter;
+  }
+  renderExercises(filter.value);
+});
