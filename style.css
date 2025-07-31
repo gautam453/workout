@@ -1,54 +1,94 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    background: #f4f4f4;
-    color: #333;
-  }
-  
-  header {
-    background: #2c3e50;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  select {
-    margin-top: 1rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1rem;
-  }
-  
-  .card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin: 1rem;
-    padding: 1rem;
-    width: 300px;
-    transition: 0.3s;
-  }
-  
-  .card h3 {
-    margin-top: 0;
-  }
-  
-  .card button {
-    background: #3498db;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .card .details {
-    display: none;
-    margin-top: 0.5rem;
-  }
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+  background: #1e1e1e;
+  color: #ddd;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+select,
+input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 1rem;
+  padding: 1rem;
+  width: 300px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+body.dark .card {
+  background: #2c2c2c;
+  color: #fff;
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.card button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.card .details {
+  display: none;
+  margin-top: 0.5rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
