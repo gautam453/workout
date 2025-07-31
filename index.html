@@ -9,12 +9,16 @@
 <body>
   <header>
     <h1>🏠 Home Workout Hub</h1>
-    <select id="filter">
-      <option value="all">All Exercises</option>
-      <option value="cardio">Cardio</option>
-      <option value="strength">Strength</option>
-      <option value="flexibility">Flexibility</option>
-    </select>
+    <div class="controls">
+      <select id="filter">
+        <option value="all">All Exercises</option>
+        <option value="cardio">Cardio</option>
+        <option value="strength">Strength</option>
+        <option value="flexibility">Flexibility</option>
+      </select>
+      <input type="text" id="search" placeholder="Search exercises..." />
+      <button id="theme-toggle">🌙</button>
+    </div>
   </header>
 
   <main id="exercise-list"></main>
